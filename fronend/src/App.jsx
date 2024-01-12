@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Routes, Route } from 'react-router-dom'
 import LandingPage from './components/LandingPage'
 import SignIn from './components/SignIn'
-import AppBar from './components/Appbar'
+import AppBar from './components/AppBar'
 import SignUp from './components/SignUp'
 import Chat from './components/Chat'
 

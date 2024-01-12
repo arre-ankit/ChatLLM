@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json()); //middleware
 
 app.use('/api/v1', appRouter);
-app.use('/');
 
 
 export default app;

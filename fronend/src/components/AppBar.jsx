@@ -1,11 +1,21 @@
 import Typography from '@mui/material/Typography';
 import { Button , Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 
 function AppBar(){
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+
+    if(email){
+        return(
+            <div>
+                Ankit
+            </div>
+        )
+    }
     return(
         <div style={{
             display: 'flex',
