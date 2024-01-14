@@ -1,13 +1,28 @@
-import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Typography, Card, TextField, Button } from '@mui/material';
 
 function SignUp(){
-        const [email, setEmail] = useState("");
+        const [username, setUsername] = useState("");
         const [password, setPassword] = useState("");
         const navigate = useNavigate();
         
+        const handleSignup = async () => {
+            const response = await fetch('http://localhost:3000/api/v1/user/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            // Todo: Create a type for the response that you get back from the server
+            const data = await response.json();
+            if (data.token) {
+                localStorage.setItem("token", data.token)
+                navigate("/chat");
+            } else {
+                alert("Error while signing up");
+            }
+        };
+
         return(
             <div>
                 <div style={{
@@ -29,7 +44,7 @@ function SignUp(){
     
                         <TextField
                             onChange={(e) => {
-                                setEmail(e.target.value);
+                                setUsername(e.target.value);
                             }}
                             fullWidth={true}
                             label="Email"
@@ -49,9 +64,7 @@ function SignUp(){
                         <br/><br/>
     
                         <Button size="large" variant="contained" color="primary" 
-                            onClick={() => {
-                                navigate("/chat");
-                            }}>
+                            onClick={handleSignup}>
                             Sign Up</Button>
                     </Card>
     

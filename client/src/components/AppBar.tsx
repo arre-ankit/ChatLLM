@@ -1,15 +1,15 @@
 import Typography from '@mui/material/Typography';
-import { Button , Box} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router';
 import { useState } from 'react';
-
+// import { SignupParams } from '@arre-ankit/common';
 
 
 function AppBar(){
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState();
 
-    if(email){
+    if(username){
         return(
             <div>
                 Ankit
