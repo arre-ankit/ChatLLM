@@ -2,6 +2,10 @@ import e from "express";
 import mongoose from "mongoose";
 
 const ChatSchema = new mongoose.Schema({
+    id:{
+        type: String,
+        default: Date.now
+    },
     role:{
         type: String,
         required: true
@@ -9,6 +13,9 @@ const ChatSchema = new mongoose.Schema({
     content:{
         type: String,
         required: true
+    },
+    name:{
+        type: String,
     }
 });
 

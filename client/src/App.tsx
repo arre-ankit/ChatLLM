@@ -6,8 +6,6 @@ import AppBar from './components/AppBar'
 import SignUp from './components/SignUp'
 import Chat from './components/Chat'
 
-
-
 function App() {
   return (
     <div>
@@ -17,7 +15,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<Chat children={null} />} />
         </Routes>
       </Router>
     </div>

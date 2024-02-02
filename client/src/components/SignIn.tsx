@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Typography, Card, TextField, Button } from '@mui/material';
-// import { SignupParams } from '@arre-ankit/common';
+import { SignupParams } from '@arre-ankit/common';
 
 function SignIn(){
     
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
 
     const handleLogin = async()=>{
-        const req = {username, password}
-        const response = await fetch('http://localhost:3000/api/v1/user/signup', {
+        const reqBody: SignupParams = {username, password} 
+        const response = await fetch('http://localhost:3000/api/v1/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify(reqBody)
         });
         // Todo: Create a type for the response that you get back from the server
         const data = await response.json();

@@ -4,10 +4,11 @@ import chatRouter from "./chat-router";
 import cors from 'cors';
 import app from "../app";
 
-app.use(cors());
+
 const appRouter = Router();
+appRouter.use(cors()); // Add this line below app.use(express.json());
 
 appRouter.use("/user", userRouter); //middleware
-appRouter.use("/chats", chatRouter); //middleware
+appRouter.use("/chat", chatRouter); //middleware
 
 export default appRouter;

@@ -18,18 +18,19 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const middleware_1 = require("../middleware");
 const common_1 = require("@arre-ankit/common");
 const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors")); // Add the import statement for cors
 dotenv_1.default.config();
 const secret_jwt = process.env.SECRET;
 const userRouter = (0, express_1.Router)();
+userRouter.use((0, cors_1.default)()); // Add this line below app.use(express.json());
 userRouter.get("/me", middleware_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //get all users
     const userId = req.headers["userId"];
     const user = yield user_schema_js_1.default.findOne({ _id: userId });
     if (user) {
         res.json({ username: user.username });
     }
     else {
-        res.status(403).json({ message: 'User not logged in' });
+        res.status(403).json({ content: 'User not logged in' });
     }
 }));
 userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,7 +44,7 @@ userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
     const password = parsedInput.data.password;
     const user = yield user_schema_js_1.default.findOne({ username: parsedInput.data.username });
     if (user) {
-        res.status(403).json({ message: 'User already exists' });
+        res.status(403).json({ content: 'User already exists' });
     }
     else {
         const newUser = new user_schema_js_1.default({ username, password });
@@ -52,7 +53,10 @@ userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
             throw new Error('secret_jwt is not defined');
         }
         const token = jsonwebtoken_1.default.sign({ id: newUser._id }, secret_jwt, { expiresIn: '1h' });
-        res.json({ message: 'User created successfully', token });
+        res.json({ content: 'User created successfully', token });
+        setTimeout(() => {
+            window.location.href = '/login';
+        }, 60 * 60 * 1000);
     }
 }));
 userRouter.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -70,10 +74,10 @@ userRouter.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, functi
             throw new Error('secret_jwt is not defined');
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id }, secret_jwt, { expiresIn: '1h' });
-        res.json({ message: 'Logged in successfully', token });
+        res.json({ content: 'Logged in successfully', token });
     }
     else {
-        res.status(403).json({ message: 'Invalid username or password' });
+        res.status(403).json({ content: 'Invalid username or password' });
     }
 }));
 exports.default = userRouter;

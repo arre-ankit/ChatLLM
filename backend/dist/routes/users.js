@@ -10,10 +10,10 @@ userRouter.get("/users", (req, res) => {
     //get all users
     try {
         const users = user_1.default.find();
-        return res.status(200).json({ message: "All users", users });
+        return res.status(200).json({ content: "All users", users });
     }
     catch (error) {
-        return res.status(401).json({ message: "Server error", error });
+        return res.status(401).json({ content: "Server error", error });
     }
 });
 exports.default = userRouter;

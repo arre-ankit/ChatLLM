@@ -12,3 +12,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.css-n74t6u {
+  width: auto !important;
+  overflow-y: visible !important;
+}
+
+body, html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
