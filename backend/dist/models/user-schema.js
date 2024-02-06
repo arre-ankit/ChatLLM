@@ -5,10 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const ChatSchema = new mongoose_1.default.Schema({
-    id: {
-        type: String,
-        default: Date.now
-    },
     role: {
         type: String,
         required: true
@@ -16,9 +12,6 @@ const ChatSchema = new mongoose_1.default.Schema({
     content: {
         type: String,
         required: true
-    },
-    name: {
-        type: String,
     }
 });
 const UserSchema = new mongoose_1.default.Schema({

@@ -16,7 +16,7 @@ const express_1 = require("express");
 const cors_1 = __importDefault(require("cors"));
 const middleware_1 = require("../middleware");
 const user_schema_js_1 = __importDefault(require("../models/user-schema.js"));
-const openai_1 = __importDefault(require("openai"));
+let user;
 const chatRouter = (0, express_1.Router)();
 chatRouter.use((0, cors_1.default)());
 chatRouter.post('/chatgpt/new', middleware_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,16 +30,36 @@ chatRouter.post('/chatgpt/new', middleware_1.authenticateJwt, (req, res) => __aw
         const chats = user.chats.map(({ role, content }) => ({ role, content }));
         chats.push({ role: "user", content: messages });
         user.chats.push({ role: "user", content: messages });
-        const openai = new openai_1.default({
-            apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
-        });
-        //send all chat with new one to OpenAI 
-        const completion = yield openai.chat.completions.create({
+        // const openai = new OpenAI({
+        // apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+        // });
+        // //send all chat with new one to OpenAI 
+        // const completion = await openai.chat.completions.create({
+        //     messages: chats as any,
+        //     model: "gpt-3.5-turbo",
+        //   })
+        // const response = await ollama.chat({
+        //   model: 'llama2',
+        //   messages: [{ role: 'user', content: 'Why is the sky blue?' }],
+        // })
+        const apiUrl = 'http://127.0.0.1:11434/api/chat';
+        const requestData = {
+            model: 'mistral',
             messages: chats,
-            model: "gpt-3.5-turbo",
-        });
-        user.chats.push(completion.choices[0].message);
-        yield user.save();
+        };
+        const data = yield fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+            .then(response => response.json())
+            .then(data => {
+            user.chats.push({ role: data.message.role, content: data.message.content });
+            return user.save();
+        })
+            .catch(error => console.error('Error:', error));
         //get latest response from OpenAI
         return res.status(200).json({ chats: user.chats });
     }
