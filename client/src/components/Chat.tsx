@@ -62,6 +62,7 @@ function Chat({children}: ChatProps){
             <ChatSideBar/>
             <Box sx={{
                 //backgroundColor: 'red',
+                paddingLeft: 3,
                 width: '100%',
                 overflowX: 'hidden',
                 overflowY: 'scroll',

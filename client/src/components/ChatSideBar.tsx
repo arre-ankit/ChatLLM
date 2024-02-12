@@ -2,7 +2,8 @@ import { Box, Button, Hidden, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import HomeIcon from '../assets/home-icon.svg';
-
+import ChatIcon from '../assets/chat-icon.svg';
+import AboutIcon from '../assets/about-icon.svg';
 
 const navLinks = [
     {
@@ -12,12 +13,12 @@ const navLinks = [
     },
     {
         title: 'Chat',
-        icon: HomeIcon,
+        icon: ChatIcon,
         path: '/'
     },
     {
         title: 'About',
-        icon: HomeIcon,
+        icon: AboutIcon,
         path: '/'
     }
 ]
@@ -76,7 +77,7 @@ function ChatSideBar(){
                                 </Box>
                             </Link>
                         ))}
-                        <Button variant="contained" style={{backgroundColor: '#242424', color:'white'}} onClick={()=> {  }}>Clear Conversation</Button>
+                        <Button variant="contained" style={{backgroundColor: '#242424', color:'white'}} onClick={()=> { window.location.reload()}}>Clear Conversation</Button>
                     </Box>
                 </Box>
             </Box>

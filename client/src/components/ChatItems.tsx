@@ -11,7 +11,7 @@ const ChatItems = ({content,role}:{content:string,role:string})=>{
                 </Box>
                 </div> : 
                 <div>
-                <Box sx={{display:'flex', p:2, backgroundColor:'blue',gap:2}}>
+                <Box sx={{display:'flex', p:2, backgroundColor:'grey',gap:2}}>
                     <Avatar sx={{ml:0}}>
                         <img src='' alt=''></img>
                     </Avatar>
